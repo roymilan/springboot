@@ -1,0 +1,171 @@
+https://drive.google.com/drive/folders/1gxGGsCLKSuBCtxtNr1dlAMYRFaMYWPvP?usp=share_link
+
+Architectural Patterns:  MVC, SOA, REST, Microservices
+EIP (Apache Camel / Spring Integration) : splitter/aggregator, content-based router, scatter/gather etc.,
+
+
+Container:
+It a pre-written progrim, provides the below features:
+1. Lifecycle management
+2. Declarative Services  (security, transaction, exception handling, profyling, logging etc.)
+
+* Spring is a pojo container
+
+Data Tier:
+
+-> jdbc
+-> hibernate -> jdbc
+-> jpa -> hibernate/toplink -> jdbc
+-> spring data repositories ->  jpa -> hibernate/toplink -> jdbc
+
+
+Spring Core [IOC, DI & AOP]
+
+IOC - Inversion of control
+DI - Dependency Injection
+AOP - Aspect-Oriented Programming  [Provides declarative services, using Proxy pattern]
+
+
+Spring Bean Scope : singleton(default), prototype, request, session, custom scope
+
+
+
+Spring Configuration Beans are annotated with @Bean  (Datasource,RestTemplate, JDBCTemplate, ResourceBundle etc.,)
+
+
+Spring Stero-type annotations:
+Presentation Tier  : @Controller/@RestController
+Business Tier : @Service
+Data Tier : @Repository
+Common Component : @Component  (ex: AOP, BeanPostProcessor )
+
+
+
+BeanPostProcessor
+|_These are special beans, registered to the applicationcontext for global initialization
+|_ There are in-built bean post processor and custom bean post processor
+
+In-built bean post processors : commonannotationbeanpostprocessor, AutowiredAnnotationBeanPostProcessor, @EnableAspectJAutoProxy(DefaultAdvisorAutoProxyCreator)
+
+AOP
+|_ Aspect : It is a class, contains one or more advices
+|_ Advice : It contains cross-cutting code (security, transaction etc.,)
+       |_ BeforeAdvice   -> Ex: Security 
+       |_ AfterAdvice / AfterReturn
+       |_ AroundAdvice  (Before and AfterReturn)   -> Ex: Transaction, Logging, Profyling
+       |_ ThrowsAdvice (Exceptin handling)
+ |_ Target : it is the real object (AccountBean, PaymentDao etc.,)
+ |_ Pointcut : AOP query language, used to apply advices to target joinpoint (Spring supports method-level join point)
+
+joinpoint :
+  |_ Spring-AOP supports only method-level joinpoint
+  |_ Aspectj supports different joinpoints (attribute, method, constructor)
+
+
+
+To  create dynamic pointcut, the class must implement the below interface:
+DynamicMethodMatcherPointcut 
+
+
+
+*BeanPostProcessor is part of the bean life cycle, for global initialization
+* Advices are uses at runtime, by calling a method on proxy object
+
+
+
+To provide declarative services: (security, logging, transaction etc.,)
+1. Servlet Container   :  Filters
+2. EJB Containers : Interceptors
+#. Pojo Container (Spring) :   AOP
+
+
+Transaction : Unit of work, either commit or rollback. Follows ACID properties
+
+jdbc transaction:
+
+connection.setAutoCommit(false);
+....insert
+....update
+...insert
+
+commit/rollback
+
+
+Spring Dao Layer :
+==============
+All technology-specific(jdbc,hibernate,jpa etc.,)   exceptions are converted into DataAccessException
+|_ Root of the hierarchy of data access exceptions 
+
+
+JPA/Hibernate
+|_ Bean-managed persisitence and transaction
+|_ Container-managed persistence and transaction
+
+
+1. Bean-managed persisitence 
+EntityManagerFactory emf=....
+EntityManager entitymanager  = emf.getEntityManager();
+.....
+
+2. Container-managed persistence 
+
+@Autowired @PersistenceContext
+EntityManager entitymanager;
+
+3. Bean-managed Transaction
+
+EntityTransaction tx = entityManager.getTransaction();
+tx.begin();
+......
+tx.commit();  / tx.rollback();
+
+
+4. Container-managed Transaction
+
+@Transactional
+
+There are 7 transaction attributes:
+
+Propagation.REQUIRED  (default)
+Propagation.REQUIRES_NEW
+Propagation.MANDATORY
+Propagation.SUPPORTS
+Propagation.NOT_SUPPORTED
+Propagation.NEVER
+Propagation.NESTED
+
+
+
+Servlet : java specification to develop web component
+Servlet Containers :   Tomcat/jetty/undertow
+
+
+
+SpringMVC
+|_ FrontController
+       |_ DispatcherServlet (extends HttpServlet)
+
+
+
+Web application Development:
+1. Servlet + JSP + POJO
+2.  Spring MVC + POJO 
+* Web application must be deployed into Servlet Container (Tomcat)
+
+
+Tomcat:
+
+*context-path is used to uniquely  differentiate the application
+
+*url-pattern is used to uniquely differentiate the resource inside the application
+
+Spring Application context
+|_ Creates HierarchicalBeanFactory for a webapplicaton declaratively
+	|_Parent-factory : Business Tier and Data Tier Components
+	|_Child-factory : Spring mvc components
+
+
+
+
+
+
