@@ -1,4 +1,4 @@
-https://drive.google.com/drive/folders/1gxGGsCLKSuBCtxtNr1dlAMYRFaMYWPvP?usp=share_link
+
 
 Architectural Patterns:  MVC, SOA, REST, Microservices
 EIP (Apache Camel / Spring Integration) : splitter/aggregator, content-based router, scatter/gather etc.,
