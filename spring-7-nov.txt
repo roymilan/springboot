@@ -29,6 +29,19 @@ AOP - Aspect-Oriented Programming  [Provides declarative services, using Proxy p
 Spring Bean Scope : singleton(default), prototype, request, session, custom scope
 
 
+@SpringBootApplication
+-----------------------
+@Configuration - It will scan for the configuration beans, annotated with @Bean
+                - RestTemplate, Datasource etc.,
+@EnableAutoConfiguration 
+     |_ spring-boot-starter-web  ->  @EnableWebMvc
+     |_ spring-boot-starter-security ->  @EnableWebSecurity
+     |_ spring-boot-starter-jms  -> @EnableJms
+@ComponentScan - It will scan for stero-type annotations 
+                 - @Controller/@RestController,@Service,@Repository, @Component
+                 
+
+
 
 Spring Configuration Beans are annotated with @Bean  (Datasource,RestTemplate, JDBCTemplate, ResourceBundle etc.,)
 
